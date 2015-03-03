@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Created by ApplusForm.com on 2013.8.6 
+
+	Permission is granted to copy, distribute, modify under the terms of ApplusForm License.
+
+	Copyright (C) 2014 ApplusForm.com. All rights reserved.
+ --> 
+<MOML version="1.1.5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.applusform.com/xsd/moml_ui_1.1.5.xsd">
+
+	<FUNCTION id="onShow">
+		<CMD cmd="animation.show('intro', 'fade', 'easeIn4', 1000, '')" />
+		<CMD cmd="function.next" delay="2000" />
+	</FUNCTION>
+	<FUNCTION id="next">
+		<CMD cmd="container.open('main.xml', 'root')" />
+	</FUNCTION>
+	<CMD condition="device.os.platform == 'Android'" cmd="userVariable.weby=-30, userVariable.webh=450" elseCmd="userVariable.weby=-50, userVariable.webh=470" />
+	<UILAYOUT portrait="320,460" landscape="320,460">
+		<WINDOW layout="0,0,320,460" align="linear:vertical|center" defaultImg="#ffffff" onShow="function.onShow">
+			<IMAGE id="intro" layout="200,185" defaultImg="/res/intro.png" visible="invisible" />
+		</WINDOW>
+	</UILAYOUT>
+</MOML>

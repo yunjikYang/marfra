@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Created by ApplusForm.com on 2013.8.6 
+
+	Permission is granted to copy, distribute, modify under the terms of ApplusForm License.
+
+	Copyright (C) 2014 ApplusForm.com. All rights reserved.
+ --> 
+<MOML version="1.1.5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.applusform.com/xsd/moml_ui_1.1.5.xsd">
+	<THEMES id="theme1">
+		<THEME id="themeAboutTitleText" textColor="#0000ff" fontSize="15" textShadow="#807060" />
+		<THEME id="themeAboutText" textColor="#000000" fontSize="13" defaultImg="#ffffff" pressedImg="#c9c9c9" />
+		<THEME id="themeCopyrightText" textColor="#666666" fontSize="9" />
+		<THEME id="title1" parent="themeAboutTitleText" defaultImg="#ffffff" pressedImg="#c9c9c9" layout="300,30" textAlign="left|vCenter" minFontSize="0" margin="0,5,0,5"
+			onClick="next.height == 0?next.height='auto':next.height=0" />
+		<THEME id="body1" parent="themeAboutText" layout="300,auto" minFontSize="0" multiLine="true" margin="0,0,0,4" />
+		<THEME id="bodyText" parent="themeAboutText" layout="auto,auto" minFontSize="0" multiLine="false" />
+		<THEME id="webLink" parent="bodyText" textColor="#6677ff" fontStyle="underline" text="{caller.link}" onClick="appLauncher.openUri(caller.link, '')" />
+		<THEME id="splitter" layout="300,1" defaultImg="#c9c9c9" />
+		<THEME id="copyright" parent="themeCopyrightText" minFontSize="0" margin="10,3,0,3" textAlign="center" />
+	</THEMES>
+	<FUNCTION id="onShow">
+		<CMD cmd="userVariable.backNavigation = 'root.tabMenu.tabNav'" />
+		<CMD cmd="function.root.naviBackBtnSet('invisible', '')" />
+	</FUNCTION>
+	<FUNCTION id="webBrowser(title, url)"> <!-- 웹페이지 팝업 -->
+		<CMD cmd="userVariable.linkTitle=title" />
+		<CMD cmd="userVariable.linkUrl=url" />
+		<CMD cmd="container.open('webBrowser.xml', 'webBrowser')" />
+	</FUNCTION>
+	<UILAYOUT portrait="320,460" landscape="320,460" theme="theme1">
+		<WINDOW layout="0,0,320,460" defaultImg="#ffffff" />
+		<LABEL id="navigationTitle" themeId="themeNavigationTitle" text="LICENSE" onClick="">
+			<BUTTON themeId="themeMenuBtn" />
+		</LABEL>
+		<WINDOW layout="10,40,300,400" scroll="vertical" align="linear:vertical" defaultImg="#ffffff" onShow="function.onShow">
+			<BUTTON themeId="title1" text="◈ 프로그램에 관하여" />
+			<WINDOW layout="300,auto" align="linear:vertical">
+				<WINDOW layout="300,auto" align="flow">
+					<LABEL themeId="bodyText" text=" 본 프로그램은 " />
+					<LABEL themeId="webLink" link="http://www.applusform.com" text="Applusform.com" navTitle="Applusform" />
+					<LABEL themeId="bodyText" text="에서 제공하는 " />
+				</WINDOW>
+				<LABEL themeId="body1" text="AppForm을 사용하여 제작되었습니다." />
+				<LABEL themeId="body1" text=" AppForm은 누구나 직접 앱 제작이 가능하도록 미리 만들어 놓은 앱개발 템플릿으로 완전한 프로젝트 상태로 제공됩니다." />
+				<LABEL themeId="body1" text=" 소스코드는 비개발자도 쉽게 이해하고 변경할 수 있도록 작성 되어 있으므로 사이트에서 원하는 형태의 AppForm을 다운로드 받아 누구나 쉽게 자신의 앱을 제작 할 수 있습니다." />
+				<LABEL themeId="body1" text="" />
+			</WINDOW>
+			<LABEL themeId="splitter" />
+			<BUTTON themeId="title1" text="◈ 이용방법" />
+			<WINDOW layout="300,auto" align="linear:vertical" onShow="caller.height=0">
+				<LABEL themeId="body1" text=" 메뉴를 선택했을 때 기존에 보유하고 있는 Mobile Web페이지를 출력하도록 하면 손쉽게 애플리케이션을 개발할 수 있습니다." />
+				<LABEL themeId="body1" text="" />
+			</WINDOW>
+			<LABEL themeId="splitter" />
+		</WINDOW>
+		<LABEL themeId="copyright" layout="10,440,280,20" text="Copyright (C) 2014 ApplusForm.com. All rights reserved." />
+	</UILAYOUT>
+</MOML>
