@@ -19,10 +19,6 @@
 		<THEME id="splitter" layout="300,1" defaultImg="#c9c9c9" />
 		<THEME id="copyright" parent="themeCopyrightText" minFontSize="0" margin="10,3,0,3" textAlign="center" />
 	</THEMES>
-	<FUNCTION id="onShow">
-		<CMD cmd="userVariable.backNavigation = 'root.tabMenu.tabNav'" />
-		<CMD cmd="function.root.naviBackBtnSet('invisible', '')" />
-	</FUNCTION>
 	<FUNCTION id="webBrowser(title, url)"> <!-- 웹페이지 팝업 -->
 		<CMD cmd="userVariable.linkTitle=title" />
 		<CMD cmd="userVariable.linkUrl=url" />
@@ -33,7 +29,7 @@
 		<LABEL id="navigationTitle" themeId="themeNavigationTitle" text="LICENSE" onClick="">
 			<BUTTON themeId="themeMenuBtn" />
 		</LABEL>
-		<WINDOW layout="10,40,300,400" scroll="vertical" align="linear:vertical" defaultImg="#ffffff" onShow="function.onShow">
+		<WINDOW layout="10,40,300,400" scroll="vertical" align="linear:vertical" defaultImg="#ffffff" >
 			<BUTTON themeId="title1" text="◈ 프로그램에 관하여" />
 			<WINDOW layout="300,auto" align="linear:vertical">
 				<WINDOW layout="300,auto" align="flow">

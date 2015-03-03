@@ -6,181 +6,144 @@
 
 	Copyright (C) 2014 ApplusForm.com. All rights reserved.
  --> 
-<MOML version="1.1.5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.applusform.com/xsd/moml_ui_1.1.5.xsd">
-
-	<THEMES id="themeMenu">
-		<THEME id="thLeftButton" layout="140,30" align="linear:horizontal|center" defaultImg="leftMenuUnSel.png" checkedImg="leftMenuSelected.png" />
-		<THEME id="thLabel1" layout="18,18" margin="5,8,5,8" />
-		<THEME id="thLabel2" layout="110,30" fontSize="12" textAlign="left|vCenter" textColor="#ffffff" margin="0,2,0,0" />
+<MOML version="1.1.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.applusform.com/xsd/moml_ui_1.1.8.xsd">
+	<THEMES>
+		<THEME id="menuItem" layout="140,30" style="button" groupId="leftMenu" align="linear:horizontal|center" defaultImg="#4a7199" checkedImg="#214a74" onClick="function.selectMenu(caller.title, caller.homePage)"/>
+		<THEME id="menuItemIcon" layout="18,18" margin="5,8,5,8" />
+		<THEME id="menuItemLabel" layout="110,30" fontSize="12" textAlign="left|vCenter" textColor="#ffffff" margin="0,2,0,0" />
+		<THEME id="menuSeparator" layout="140,1px" defaultImg="#3d546a"/>
 	</THEMES>
 
-	<FUNCTION id="fn_slide">
-		<CMD condition="userVariable.slideAnimationEnd == 'true'" cmd="function.fn_slideDo" />
-	</FUNCTION>
-	<FUNCTION id="fn_slideDo">
-		<CMD cmd="userVariable.slideAnimationEnd = 'false'" />
-		<CMD condition="userVariable.menuView=='0'" cmd="function.fn_slideFold" elseCmd="function.fn_slideUnfold" />
-	</FUNCTION>
-	<FUNCTION id="fn_slideFold">
-		<CMD cmd="userVariable.overlay1=image.capture('id_leftMenu', 0, 0, 70, 460)" />
-		<CMD cmd="userVariable.overlay2=image.capture('id_leftMenu', 70, 0, 70, 460)" />
-		<CMD cmd="id_leftMenuOverlay1.defaultImg=userVariable.overlay1" />
-		<CMD cmd="id_leftMenuOverlay2.defaultImg=userVariable.overlay2" />
-		<CMD cmd="id_leftMenuOverlay1.visible='visible'" />
-		<CMD cmd="id_leftMenuOverlay2.visible='visible'" />
-		<CMD cmd="id_leftMenu.visible='invisible'" delay="100" />
+	<UILAYOUT portrait="320,460" landscape="320,460">
+		<WINDOW layout="0,0,320,460" align="relative" defaultImg="#000000" onFlickRight="userVariable.menuView == '1'?function.slide:''" onFlickLeft="userVariable.menuView == '0'?function.slide:''">
 
-		<CMD cmd="animation.polyOut('id_leftMenuOverlay1', 0, 0, -68, 50, 0, 0, -68, -50, 'easeIn3', 400, '')" />
-		<CMD cmd="animation.polyOut('id_leftMenuOverlay2', -72, 50, -139, 0, -72, -50, -139, 0, 'easeIn3', 400, '')" />
-		<CMD cmd="id_leftMenu.visible='invisible'" delay="100" />
-		<CMD cmd="userVariable.menuView='1', id_rightArea.left=0, animation.flyIn('id_rightArea', 140, 0, 320, 460, 'easeIn3', 400, '')" />
-		<CMD cmd="userVariable.slideAnimationEnd = 'true'" delay="400" />
-	</FUNCTION>
-
-	<FUNCTION id="fn_slideUnfold">
-		<CMD cmd="animation.polyIn('id_leftMenuOverlay1', 0, 0, -69, 50, 0, 0, -69, -50, 'easeOut3', 400, '')" />
-		<CMD cmd="animation.polyIn('id_leftMenuOverlay2', -69, 50, -139, 0, -69, -50, -139, 0, 'easeOut3', 400, '')" />
-		<CMD cmd="userVariable.menuView='0', function.updateRadio, animation.flyOut('id_rightArea', 140, 0, 320, 460, 'easeOut3', 400, 'id_rightArea.left=140,id_rightArea.visible=\'visible\'')" />
-		<CMD cmd="id_leftMenu.visible='visible'" delay="400" />
-		<CMD cmd="id_leftMenuOverlay1.visible='invisible'" delay="400" />
-		<CMD cmd="id_leftMenuOverlay2.visible='invisible'" delay="400" />
-
-		<CMD cmd="userVariable.slideAnimationEnd = 'true'" delay="400" />
-	</FUNCTION>
-
-	<FUNCTION id="navigation(item)">
-		<CMD cmd="function.fn_slide" delay="200" />
-		<CMD condition="navigation.selectedItem != item" cmd="navigation.selectedItem=item" elseCmd="application.runScript('navigation.' + item, 'container.src=container.documentUrl')"/>
-	</FUNCTION>
-
-	<FUNCTION id="menuAllMenu">
-		<CMD cmd="function.fn_slide" />
-		<CMD cmd="userVariable.selectedItem = navigation.selectedItem" />
-		<CMD cmd="navigation.selectedItem='allMenu'" />
-	</FUNCTION>
-	<FUNCTION id="updateRadio">
-		<CMD condition="navigation.selectedItem=='news'" cmd="leftMenuNews.selected='true'" />
-		<CMD condition="navigation.selectedItem=='notice'" cmd="leftMenuNotice.selected='true'" />
-		<CMD condition="navigation.selectedItem=='explain'" cmd="leftMenuExplain.selected='true'" />
-		<CMD condition="navigation.selectedItem=='incruit'" cmd="leftMenuIncruit.selected='true'" />
-		<CMD condition="navigation.selectedItem=='alert'" cmd="leftMenuAlert.selected='true'" />
-		<CMD condition="navigation.selectedItem=='stats'" cmd="leftMenuStats.selected='true'" />
-		<CMD condition="navigation.selectedItem=='price'" cmd="leftMenuPrice.selected='true'" />
-		<CMD condition="navigation.selectedItem=='basket'" cmd="leftMenuBasket.selected='true'" />
-		<CMD condition="navigation.selectedItem=='blog'" cmd="leftMenuBlog.selected='true'" />
-		<CMD condition="navigation.selectedItem=='twitter'" cmd="leftMenuTwitter.selected='true'" />
-		<CMD condition="navigation.selectedItem=='facebook'" cmd="leftMenuFacebook.selected='true'" />
-		<CMD condition="navigation.selectedItem=='license'" cmd="leftMenuLicense.selected='true'" />
-	</FUNCTION>
-
-	<FUNCTION id="openWebbrowser(url)">
-		<CMD cmd="appLauncher.openUri(url, '')" />
-	</FUNCTION>
-
-
-	<!-- 초기화 값들 -->
-	<CMD cmd="userVariable.backNavigation = 'root.navigation'" />
-	<CMD condition="id_rightArea.left == 140" cmd="userVariable.menuView='0'" elseCmd="userVariable.menuView='1'" />
-	<CMD cmd="userVariable.slideAnimationEnd = 'true'" />
-
-	<UILAYOUT portrait="320,460" landscape="320,460" theme="themeMenu">
-		<WINDOW layout="0,0,320,460" align="relative" defaultImg="#000000" onFlickRight="{userVariable.menuView == '1'?function.fn_slide:''}" onFlickLeft="{userVariable.menuView == '0'?function.fn_slide:''}">
-
-			<WINDOW id="id_leftMenu" layout="0,0,140,460" align="linear:vertical" defaultImg="#000000" onShow1="function.onShow()">
-
-				<LABEL layout="140,40" defaultImg="#ffffff" align="linear:vertical|center">
-					<IMAGE layout="140,30" defaultImg="logo.png" />
-				</LABEL>
-
-				<RADIO id="leftMenuNews" style="button" groupId="leftMenu" themeId="thLeftButton" onClick="function.navigation('news')" selected="true">
-					<LABEL themeId="thLabel1" defaultImg="menuIcon1.png" />
-					<LABEL themeId="thLabel2" text="최신뉴스" />
-				</RADIO>
-
-				<RADIO id="leftMenuNotice" style="button" groupId="leftMenu" themeId="thLeftButton" onClick="function.navigation('notice')">
-					<LABEL themeId="thLabel1" defaultImg="menuIcon2.png" />
-					<LABEL themeId="thLabel2" text="공지공고" />
-				</RADIO>
-
-				<RADIO id="leftMenuExplain" style="button" groupId="leftMenu" themeId="thLeftButton" onClick="function.navigation('explain')">
-					<LABEL themeId="thLabel1" defaultImg="menuIcon3.png" />
-					<LABEL themeId="thLabel2" text="해명/설명" />
-				</RADIO>
-
-				<RADIO id="leftMenuIncruit" style="button" groupId="leftMenu" themeId="thLeftButton" onClick="function.navigation('incruit')">
-					<LABEL themeId="thLabel1" defaultImg="menuIcon4.png" />
-					<LABEL themeId="thLabel2" text="채용정보" />
-				</RADIO>
-
-				<RADIO id="leftMenuAlert" style="button" groupId="leftMenu" themeId="thLeftButton" onClick="function.navigation('alert')">
-					<LABEL themeId="thLabel1" defaultImg="menuIcon5.png" />
-					<LABEL themeId="thLabel2" text="알림판" />
-				</RADIO>
-
-				<RADIO id="leftMenuStats" style="button" groupId="leftMenu" themeId="thLeftButton" onClick="function.navigation('stats')">
-					<LABEL themeId="thLabel1" defaultImg="menuIcon6.png" />
-					<LABEL themeId="thLabel2" text="통계" />
-				</RADIO>
-
-				<RADIO id="leftMenuPrice" style="button" groupId="leftMenu" themeId="thLeftButton" onClick="function.navigation('price')">
-					<LABEL themeId="thLabel1" defaultImg="menuIcon7.png" />
-					<LABEL themeId="thLabel2" text="농식품가격" />
-				</RADIO>
-
-				<RADIO id="leftMenuBasket" style="button" groupId="leftMenu" themeId="thLeftButton" onClick="function.navigation('basket')">
-					<LABEL themeId="thLabel1" defaultImg="menuIcon8.png" />
-					<LABEL themeId="thLabel2" text="안심장보기" />
-				</RADIO>
-
-				<LABEL themeId="thLeftButton" layout="140,20" text="  SNS" fontSize="10" textAlign="left|vCenter" textColor="#000000" />
-				<RADIO id="leftMenuBlog" style="button" groupId="leftMenu" themeId="thLeftButton" onClick="function.navigation('blog')">
-					<LABEL themeId="thLabel1" defaultImg="menuIcon9.png" />
-					<LABEL themeId="thLabel2" text="블로그" />
-				</RADIO>
-
-				<RADIO id="leftMenuTwitter" style="button" groupId="leftMenu" themeId="thLeftButton" onClick="appLauncher.openUri('twitter://user?screen_name=mafrakorea', 'askErrorPopup')">
-					<LABEL themeId="thLabel1" defaultImg="menuIcon10.png" />
-					<LABEL themeId="thLabel2" text="트위터" />
-				</RADIO>
-
-				<RADIO id="leftMenuFacebook" style="button" groupId="leftMenu" themeId="thLeftButton" onClick="function.navigation('facebook')">
-					<LABEL themeId="thLabel1" defaultImg="menuIcon11.png" />
-					<LABEL themeId="thLabel2" text="페이스북" />
-				</RADIO>
-
-				<RADIO id="leftMenuLicense" style="button" groupId="leftMenu" themeId="thLeftButton" onClick="function.navigation('license')">
-					<LABEL themeId="thLabel1" defaultImg="" />
-					<LABEL themeId="thLabel2" text="License" />
-				</RADIO>
-
-				<LABEL themeId="thLeftButton" layout="140,80" defaultImg="leftMenuSelected.png" align="linear:vertical|top|center">
-					<LABEL themeId="thLeftButton" layout="60,60" defaultImg="menuAll.png" onClick="function.menuAllMenu" />
-				</LABEL>
-
-			</WINDOW>
-			<WINDOW id="id_leftMenuOverlay1" layout="0,0,71,460" visible="invisible" />
-			<WINDOW id="id_leftMenuOverlay2" layout="70,0,71,460" visible="invisible" />
-			<WINDOW id="id_rightArea" layout="140,0,320,460" align="linear:vertical" defaultImg="#E5E5E5" onClick="'none'">
-				<WINDOW layout="640,885" align="relative">
-					<NAVIGATIONCONTAINER themeId="bg" id="navigation" layout="0,0,320,460" selectedItem="news">
-						<VIEWITEM id="news" src="news.xml" transitionInEffect="none" transitionOutEffect="none" />
-						<VIEWITEM id="notice" src="notice.xml" transitionInEffect="none" transitionOutEffect="none" />
-						<VIEWITEM id="explain" src="explain.xml" transitionInEffect="none" transitionOutEffect="none" />
-						<VIEWITEM id="incruit" src="incruit.xml" transitionInEffect="none" transitionOutEffect="none" />
-						<VIEWITEM id="alert" src="alert.xml" transitionInEffect="none" transitionOutEffect="none" />
-						<VIEWITEM id="incruit" src="incruit.xml" transitionInEffect="none" transitionOutEffect="none" />
-						<VIEWITEM id="stats" src="stats.xml" transitionInEffect="none" transitionOutEffect="none" />
-						<VIEWITEM id="price" src="price.xml" transitionInEffect="none" transitionOutEffect="none" />
-						<VIEWITEM id="basket" src="basket.xml" transitionInEffect="none" transitionOutEffect="none" />
-						<VIEWITEM id="blog" src="blog.xml" transitionInEffect="none" transitionOutEffect="none" />
-						<VIEWITEM id="twitter" src="twitter.xml" transitionInEffect="none" transitionOutEffect="none" />
-						<VIEWITEM id="facebook" src="facebook.xml" transitionInEffect="none" transitionOutEffect="none" />
-						<VIEWITEM id="license" src="license.xml" transitionInEffect="none" transitionOutEffect="none" />
-						<VIEWITEM id="allMenu" src="mainAllMenu.xml" transitionInEffect="tornado" transitionOutEffect="tornado" />
-					</NAVIGATIONCONTAINER>
+			<WINDOW id="leftMenu" layout="0,0,140,460" align="linear:vertical" defaultImg="#516a94">
+				<WINDOW layout="140,40" defaultImg="#ffffff" align="linear:vCenter|subCenter" padding="10,0,0,0">
+					<IMAGE layout="30sr,30sr" defaultImg="/res/logo.png" />
+					<LABEL text="농림축산식품부" fontStyle="bold" fontSize="12" margin="3,0,0,0"/>
 				</WINDOW>
+
+				<RADIO id="defaultMenu" themeId="menuItem" title="최신뉴스" homePage="http://m.mafra.go.kr/bbs/list.jsp?board_division=b_sec_1&amp;menu_gubun=menu_1" selected="true">
+					<LABEL themeId="menuItemIcon" defaultImg="/res/news.png" />
+					<LABEL themeId="menuItemLabel" text="{parent.title}" />
+				</RADIO>
+				<WINDOW themeId="menuSeparator" />
+				<RADIO themeId="menuItem" title="공지/공고" homePage="http://m.mafra.go.kr/bbs/list.jsp?board_division=m_sec_2&amp;menu_gubun=menu_2" >
+					<LABEL themeId="menuItemIcon" defaultImg="/res/notice.png" />
+					<LABEL themeId="menuItemLabel" text="{parent.title}" />
+				</RADIO>
+				<WINDOW themeId="menuSeparator" />
+				<RADIO themeId="menuItem" title="해명/설명" homePage="http://m.mafra.go.kr/bbs/list.jsp?board_division=e_sec_1&amp;menu_gubun=menu_8" >
+					<LABEL themeId="menuItemIcon" defaultImg="/res/explain.png" />
+					<LABEL themeId="menuItemLabel" text="{parent.title}" />
+				</RADIO>
+				<WINDOW themeId="menuSeparator" />
+				<RADIO themeId="menuItem" title="채용정보" homePage="http://m.mafra.go.kr/bbs/list.jsp?board_division=m_sec_3&amp;menu_gubun=menu_3" >
+					<LABEL themeId="menuItemIcon" defaultImg="/res/incruit.png" />
+					<LABEL themeId="menuItemLabel" text="{parent.title}" />
+				</RADIO>
+				<WINDOW themeId="menuSeparator" />
+				<RADIO themeId="menuItem" title="알림판" homePage="http://m.mafra.go.kr/bbs/Popup_list.jsp?menu_gubun=menu_4" >
+					<LABEL themeId="menuItemIcon" defaultImg="/res/alert.png" />
+					<LABEL themeId="menuItemLabel" text="{parent.title}" />
+				</RADIO>
+				<WINDOW themeId="menuSeparator" />
+				<RADIO themeId="menuItem" title="통계" homePage="http://m.mafra.go.kr/bbs/stat_chart.jsp?menu_gubun=menu_6" >
+					<LABEL themeId="menuItemIcon" defaultImg="/res/stats.png" />
+					<LABEL themeId="menuItemLabel" text="{parent.title}" />
+				</RADIO>
+				<WINDOW themeId="menuSeparator" />
+				<RADIO themeId="menuItem" title="농식품가격" homePage="http://m.okdab.com/mb/" >
+					<LABEL themeId="menuItemIcon" defaultImg="/res/price.png" />
+					<LABEL themeId="menuItemLabel" text="{parent.title}" />
+				</RADIO>
+				<WINDOW themeId="menuSeparator" />
+				<RADIO themeId="menuItem" title="안심장보기" homePage="http://m.mafra.go.kr/bbs/view_links.jsp?menu_gubun=menu_7" >
+					<LABEL themeId="menuItemIcon" defaultImg="/res/basket.png" />
+					<LABEL themeId="menuItemLabel" text="{parent.title}" />
+				</RADIO>
+
+				<LABEL layout="140,20" text="  SNS" fontSize="10" textAlign="left|vCenter" textColor="#a0a0a0" />
+
+				<RADIO themeId="menuItem" title="블로그" homePage="http://m.blog.daum.net/_blog/_m/articleList.do?blogid=08n2r" >
+					<LABEL themeId="menuItemIcon" defaultImg="/res/blog.png" />
+					<LABEL themeId="menuItemLabel" text="{parent.title}" />
+				</RADIO>
+				<WINDOW themeId="menuSeparator" />
+				<RADIO themeId="menuItem" title="트위터" onClick="appLauncher.openUri('twitter://user?screen_name=mafrakorea', 'askErrorPopup')" >
+					<LABEL themeId="menuItemIcon" defaultImg="/res/twitter.png" />
+					<LABEL themeId="menuItemLabel" text="{parent.title}" />
+				</RADIO>
+				<WINDOW themeId="menuSeparator" />
+				<RADIO themeId="menuItem" title="페이스북" homePage="https://www.facebook.com/mafrakorea" >
+					<LABEL themeId="menuItemIcon" defaultImg="/res/facebook.png" />
+					<LABEL themeId="menuItemLabel" text="{parent.title}" />
+				</RADIO>
+				<WINDOW themeId="menuSeparator" />
+				<RADIO themeId="menuItem" title="License" onClick="containerArea.src='license.xml'" >
+					<LABEL themeId="menuItemIcon" defaultImg="" />
+					<LABEL themeId="menuItemLabel" text="{parent.title}" />
+				</RADIO>
+			</WINDOW>
+			<WINDOW id="leftMenuOverlay1" layout="0,0,71,460" visible="invisible" />
+			<WINDOW id="leftMenuOverlay2" layout="70,0,71,460" visible="invisible" />
+			<WINDOW id="rightArea" layout="140,0,320,460" defaultImg="#E5E5E5" onClick="'none'">
+				<CONTAINER id="containerArea" layout="0,0,320,460" src="webview.xml"/>
 			</WINDOW>
 		</WINDOW>
-
 	</UILAYOUT>
+
+	<!-- 왼쪽 메뉴 기본값 열기:true, 닫기:false-->
+	<CMD cmd="menuDefaultOpen = true" /> 
+	
+	<CMD condition="menuDefaultOpen" cmd="rightArea.left = 140, userVariable.menuView = 0" elseCmd="rightArea.left = 0, userVariable.menuView = 1" />
+	<CMD cmd="userVariable.slideAnimationEnd = 'true'" />
+	<CMD cmd="function.loadWebPage(defaultMenu.title, defaultMenu.homePage)" />
+
+
+	<FUNCTION id="slide">
+		<CMD condition="userVariable.slideAnimationEnd == 'true'" cmd="function.slideDo" />
+	</FUNCTION>
+	<FUNCTION id="slideDo">
+		<CMD cmd="userVariable.slideAnimationEnd = 'false'" />
+		<CMD condition="userVariable.menuView=='0'" cmd="function.slideFold" elseCmd="function.slideUnfold" />
+	</FUNCTION>
+	<FUNCTION id="slideFold">
+		<CMD cmd="userVariable.overlay1=image.capture('leftMenu', 0, 0, 70, 460)" />
+		<CMD cmd="userVariable.overlay2=image.capture('leftMenu', 70, 0, 70, 460)" />
+		<CMD cmd="leftMenuOverlay1.defaultImg=userVariable.overlay1" />
+		<CMD cmd="leftMenuOverlay2.defaultImg=userVariable.overlay2" />
+		<CMD cmd="leftMenuOverlay1.visible='visible'" />
+		<CMD cmd="leftMenuOverlay2.visible='visible'" />
+		<CMD cmd="leftMenu.visible='invisible'" delay="100" />
+
+		<CMD cmd="animation.polyOut('leftMenuOverlay1', 0, 0, -68, 50, 0, 0, -68, -50, 'easeOut3', 400, '')" />
+		<CMD cmd="animation.polyOut('leftMenuOverlay2', -72, 50, -139, 0, -72, -50, -139, 0, 'easeOut3', 400, '')" />
+		<CMD cmd="leftMenu.visible='invisible'" delay="100" />
+		<CMD cmd="userVariable.menuView='1', rightArea.left=0, animation.flyIn('rightArea', 140, 0, 320, 460, 'easeOut3', 400, '')" />
+		<CMD cmd="userVariable.slideAnimationEnd = 'true'" delay="400" />
+	</FUNCTION>
+
+	<FUNCTION id="slideUnfold">
+		<CMD cmd="animation.polyIn('leftMenuOverlay1', 0, 0, -69, 50, 0, 0, -69, -50, 'easeOut3', 400, '')" />
+		<CMD cmd="animation.polyIn('leftMenuOverlay2', -69, 50, -139, 0, -69, -50, -139, 0, 'easeOut3', 400, '')" />
+		<CMD cmd="userVariable.menuView='0', animation.flyOut('rightArea', 140, 0, 320, 460, 'easeOut3', 400, 'rightArea.left=140,rightArea.visible=\'visible\'')" />
+		<CMD cmd="leftMenu.visible='visible'" delay="400" />
+		<CMD cmd="leftMenuOverlay1.visible='invisible'" delay="400" />
+		<CMD cmd="leftMenuOverlay2.visible='invisible'" delay="400" />
+
+		<CMD cmd="userVariable.slideAnimationEnd = 'true'" delay="400" />
+	</FUNCTION>
+
+	<FUNCTION id="selectMenu(title,homePage)">
+		<CMD cmd="function.slide" delay="200" />
+		<CMD cmd="function.loadWebPage(title, homePage)" />
+	</FUNCTION>
+	
+	<FUNCTION id="loadWebPage(title, homePage)">
+		<CMD cmd="userVariable.title = title"/>
+		<CMD cmd="userVariable.homePage = homePage"/>
+		<CMD cmd="containerArea.src='webview.xml'"/>
+	</FUNCTION>
+	
 </MOML>
