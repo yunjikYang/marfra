@@ -1,4 +1,4 @@
-# MARFRA (HybridAppC01 - 농림축산식품부)
+# MARFRA (농림축산식품부)
 HybridAppC01 AppForm을 기반으로 제작한 간단한 웹앱입니다.
 
 스플래시화면, 왼쪽 메뉴, 웹뷰 툴바가 구현되어 있습니다.
