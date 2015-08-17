@@ -6,12 +6,12 @@
 
 	Copyright (C) 2014 ApplusForm.com. All rights reserved.
 -->
-<MOML version="1.1.5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.applusform.com/xsd/moml_ui_1.1.5.xsd">
+<MOML version="1.1.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.applusform.com/xsd/moml_ui_1.1.8.xsd">
 	<UILAYOUT portrait="320,460" landscape="320,460">
 		<LABEL id="navigationTitle" themeId="themeNavigationTitle" text="{userVariable.title}" onClick="">
 			<BUTTON themeId="themeMenuBtn" />
 		</LABEL>
-		<AGATEWEBVIEW id="web" layout="0,40,320,380" src="{userVariable.homePage}" controls="none">
+		<AGATEWEBVIEW id="web" layout="0,40,320,380" src="{userVariable.url}" controls="none">
 			<LINKMAP>
 				<LINK url="http://www.mafra.go.kr/" cmd="function.root.openWebbrowser" />
 				<LINK url="http://m.mafra.go.kr/*" jsPlugin="removeHeaderFooter.js" delay="800"/>
@@ -22,7 +22,7 @@
 			<BUTTON id="back" layout="30,30" margin="10,0,10,0" defaultImg="/res/webbackgray.png" onClick="web.back" />
 			<BUTTON id="forward" layout="30,30" margin="10,0,10,0" defaultImg="/res/webforgray.png" onClick="web.forward" />
 			<BUTTON layout="30,30" margin="10,0,10,0" defaultImg="/res/webrefresh.png" onClick="web.refresh" />
-			<BUTTON layout="30,30" margin="10,0,10,0" defaultImg="/res/webhome.png" onClick="web.clear, web.src=userVariable.homePage" />
+			<BUTTON layout="30,30" margin="10,0,10,0" defaultImg="/res/webhome.png" onClick="web.clear, web.src=userVariable.url" />
 		</WINDOW>
 	</UILAYOUT>
 

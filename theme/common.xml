@@ -9,5 +9,5 @@
 <MOML version="1.0.0">
     <THEME id="themeCopyright" layout="320,35" defaultImg="/res/copy.jpg"/>
     <THEME id="themeNavigationTitle" layout="0,0,320,40" defaultImg="/res/top_bg.jpg" textAlign="center" textColor="#ffffff" fontSize="18"/>
-    <THEME id="themeMenuBtn" layout="10,5,50,30" text="" defaultImg="/res/me.png" onClick="function.document.document.slide"/>
+    <THEME id="themeMenuBtn" layout="10,5,50,30" text="" defaultImg="/res/me.png" onClick="function.document.document.toggleSlide"/>
 </MOML>
