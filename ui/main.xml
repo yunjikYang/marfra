@@ -65,17 +65,17 @@
 
 				<LABEL layout="140,20" text="  SNS" fontSize="10" textAlign="left|vCenter" textColor="#a0a0a0" />
 
-				<RADIO themeId="menuItem" title="블로그" url="http://m.blog.daum.net/_blog/_m/articleList.do?blogid=08n2r" >
+				<RADIO themeId="menuItem" title="블로그2" url="http://m.blog.daum.net/_blog/_m/articleList.do?blogid=08n2r" >
 					<LABEL themeId="menuItemIcon" defaultImg="/res/blog.png" />
 					<LABEL themeId="menuItemLabel" text="{parent.title}" />
 				</RADIO>
 				<WINDOW themeId="menuSeparator" />
-				<RADIO themeId="menuItem" title="트위터" onClick="appLauncher.openUri('twitter://user?screen_name=mafrakorea', 'askErrorPopup')" >
+				<RADIO themeId="menuItem" title="트위터2" onClick="appLauncher.openUri('twitter://user?screen_name=mafrakorea', 'askErrorPopup')" >
 					<LABEL themeId="menuItemIcon" defaultImg="/res/twitter.png" />
 					<LABEL themeId="menuItemLabel" text="{parent.title}" />
 				</RADIO>
 				<WINDOW themeId="menuSeparator" />
-				<RADIO themeId="menuItem" title="페이스북" url="https://www.facebook.com/mafrakorea" >
+				<RADIO themeId="menuItem" title="페이스북2" url="https://www.facebook.com/mafrakorea" >
 					<LABEL themeId="menuItemIcon" defaultImg="/res/facebook.png" />
 					<LABEL themeId="menuItemLabel" text="{parent.title}" />
 				</RADIO>
