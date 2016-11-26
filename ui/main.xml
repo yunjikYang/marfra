@@ -8,112 +8,103 @@
  --> 
 <MOML version="1.1.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.applusform.com/xsd/moml_ui_1.1.8.xsd">
 	<THEMES>
-		<THEME id="menuItem" layout="140,30" style="button" groupId="leftMenu" align="linear:horizontal|center" defaultImg="#4a7199" checkedImg="#214a74" onClick="function.loadUrl(caller.title, caller.url)"/>
-		<THEME id="menuItemIcon" layout="18,18" margin="5,8,5,8" />
-		<THEME id="menuItemLabel" layout="110,30" fontSize="12" textAlign="left|vCenter" textColor="#ffffff" margin="0,2,0,0" />
-		<THEME id="menuSeparator" layout="140,2px" defaultImg="#3d546a"/>
+		<THEME element="BUTTON" textColor="#ffffff" defaultImg="#0080ff" pressedImg="#008000" margin="1"/>
 	</THEMES>
 
-	<UILAYOUT portrait="320,460" landscape="320,460">
-		<WINDOW layout="0,0,320,460" align="relative" defaultImg="#000000" onFlickRight="function.openSlide" onFlickLeft="function.closeSlide">
+	<UILAYOUT portrait="320,480" landscape="320,480">
+		<WINDOW layout="0,0,320,480" img="white" align="linear:vertical" padding="10,20,10,0">
+			<LABEL text="가까운 병원 검색 : " textAlign="center|right"/>
 
-			<WINDOW id="leftMenu" layout="0,0,140,460" align="linear:vertical" defaultImg="#516a94">
-				<WINDOW layout="140,40" defaultImg="#ffffff" align="linear:vCenter|subCenter" padding="10,0,0,0">
-					<IMAGE layout="30sr,30sr" defaultImg="/res/logo.png" />
-					<LABEL text="농림축산식품부" fontStyle="bold" fontSize="12" margin="3,0,0,0"/>
+			<WINDOW align="linear:subCenter">
+				<BUTTON layout="120,30" text="현 위치 확인" onClick="function.findLocation" />
+				<BUTTON layout="60,30" text="검색" onClick="function.search" />
+			</WINDOW>
+
+			<WINDOW align="linear:subCenter">
+				<LABEL layout="40,30" text="위도 : " textAlign="right|vCenter"/>
+				<EDIT id="latitude" layout="110,30" textAlign="vCenter" text="37.5467649"/>
+				<LABEL layout="40,30" text="경도 : " textAlign="right|vCenter"/>
+				<EDIT id="longitude" layout="110,30" textAlign="vCenter" text="127.0638224"/>
+			</WINDOW>
+
+			<WINDOW align="linear:subCenter">
+				<LABEL text="현 주소" layout="60,30" fontSize="10" textAlign="vCenter" textColor="gray"/>
+				<LABEL id="address" layout="200,30" fontSize="10" textAlign="vCenter" textColor="gray"/>
+			</WINDOW>
+
+			<WINDOW layout="300,300" align="relative">
+				<LIST2 id="hospitalList" layout="0,0,300,300" dataList="//item" img="lightsteelblue" divider="#808080">
+					<LISTLAYOUT>
+						<BUTTON layout="0,0,300,60" img="transparent" pressedImg="#80a0ff" onClick="function.showMap">
+							<LABEL id="divName" layout="5,3,50,10" text="{xpath.evaluate('dutyDivName/text()')}" textAlign="vCenter" fontSize="10" />
+							<LABEL id="name" layout="55,3,200,15" text="{xpath.evaluate('dutyName/text()')}" textAlign="vCenter" fontSize="13" />
+							<LABEL id="distance" layout="260,3,30,15" text="{xpath.evaluate('distance/text()') * 1000} m" textAlign="vCenter" fontSize="10" />
+							<LABEL id="address" layout="55,20,240,15" text="{xpath.evaluate('dutyAddr/text()')}" textAlign="vCenter" fontSize="10" />
+							<LABEL layout="5,38,50,20" text="진료 시간" fontSize="10"/>
+							<LABEL id="time" layout="55,38,50,20" text="{function.toTime(xpath.evaluate('startTime/text()'))} ~ {function.toTime(xpath.evaluate('endTime/text()'))}" textAlign="vCenter" fontSize="10" />
+							<BUTTON id="map" layout="150,38,50,20" text="지도" onClick="function.showMap"/>
+							<BUTTON id="tel" layout="205,38,90,20" text="{xpath.evaluate('dutyTel1/text()')}" fontSize="10" onClick="appLauncher.openUri('tel:' + caller.text, '')"/>
+						</BUTTON>
+					</LISTLAYOUT>
+				</LIST2>
+				
+				<WINDOW id="detailMap" layout="0,0,300,300" visible="invisible" defaultImg="lightsteelblue" onClick="ignore">
+					<LABEL id="mapTitle" layout="0,0,300,30" textAlign="center" fontSize="15" defaultImg="#e0e0ff"/>
+					<WEBVIEW id="mapWebView" layout="10,30,280,230" controls="none"/>
+					<BUTTON layout="125,265,50,30" text="닫기" onClick="mapWebView.clear; detailMap.visible=false" />
 				</WINDOW>
-
-				<RADIO id="defaultMenu" themeId="menuItem" title="최신글" url="http://m.mafra.go.kr/bbs/list.jsp?board_division=b_sec_1&amp;menu_gubun=menu_1" selected="true">
-					<LABEL themeId="menuItemIcon" defaultImg="/res/news.png" />
-					<LABEL themeId="menuItemLabel" text="{parent.title}" />
-				</RADIO>
-				<WINDOW themeId="menuSeparator" />
-				<RADIO themeId="menuItem" title="공지사항" url="http://m.mafra.go.kr/bbs/list.jsp?board_division=m_sec_2&amp;menu_gubun=menu_2" >
-					<LABEL themeId="menuItemIcon" defaultImg="/res/notice.png" />
-					<LABEL themeId="menuItemLabel" text="{parent.title}" />
-				</RADIO>
-				<WINDOW themeId="menuSeparator" />
-				<RADIO themeId="menuItem" title="개발팁" url="http://m.mafra.go.kr/bbs/list.jsp?board_division=e_sec_1&amp;menu_gubun=menu_8" >
-					<LABEL themeId="menuItemIcon" defaultImg="/res/explain.png" />
-					<LABEL themeId="menuItemLabel" text="{parent.title}" />
-				</RADIO>
-				<WINDOW themeId="menuSeparator" />
-				<RADIO themeId="menuItem" title="질문/답변" url="http://m.mafra.go.kr/bbs/list.jsp?board_division=m_sec_3&amp;menu_gubun=menu_3" >
-					<LABEL themeId="menuItemIcon" defaultImg="/res/incruit.png" />
-					<LABEL themeId="menuItemLabel" text="{parent.title}" />
-				</RADIO>
 			</WINDOW>
-			<WINDOW id="leftMenuOverlay1" layout="0,0,71,460" visible="invisible" />
-			<WINDOW id="leftMenuOverlay2" layout="70,0,71,460" visible="invisible" />
-			<WINDOW id="rightArea" layout="140,0,320,460" defaultImg="#E5E5E5" onClick="'none'">
-				<CONTAINER id="containerArea" layout="0,0,320,460" src="webview.xml"/>
-			</WINDOW>
+			
+			<LABEL layout="300,20" text="자료제공 : 국립중앙의료원" fontSize="10" textAlign="center|right"/>
 		</WINDOW>
 	</UILAYOUT>
 
-	<!-- 왼쪽 메뉴 기본값 열기:true, 닫기:false-->
-	<CMD cmd="menuDefaultOpen = false" />
+	//////
 
-	
-	<CMD cmd="userVariable.slideIsAnimating = false" />
-	<CMD condition="menuDefaultOpen" cmd="rightArea.left = 140, userVariable.slideIsOpen = true" elseCmd="rightArea.left = 0, userVariable.slideIsOpen = false" />
-	<CMD cmd="function.loadUrl(defaultMenu.title, defaultMenu.url)" />
-
-
-	<FUNCTION id="toggleSlide">
-		<CMD condition="userVariable.slideIsOpen" cmd="function.closeSlide" elseCmd="function.openSlide" />
+	// GPS를 통한 자료요청 부분
+	<CMD cmd="userVariable.serviceKey = 'XAQRkAc4BBj5RWTWfdEX5Oc5ry0o4j74tmxD5R4HhJoegNLrNTlRZl6%2BCW%2BX%2BC28DAwBYq73UvcNcdB6n591bg%3D%3D'" />
+	<FUNCTION id="search">
+		<RETURN condition="latitude.text == 0 or longitude.text == 0" cmd="device.systemPopup('현위치를 확인하거나 직접 좌표를 입력하세요.')" />
+		<CMD cmd="url = 'http://openapi.e-gen.or.kr/openapi/service/rest/HsptlAsembySearchService/getHsptlMdcncLcinfoInqire?ServiceKey=' + userVariable.serviceKey"/>
+		<CMD cmd="url = url + '&amp;WGS84_LAT=' + latitude.text"/>
+		<CMD cmd="url = url + '&amp;WGS84_LON=' + longitude.text"/>
+		<CMD cmd="url = url + '&amp;pageNo=1&amp;numOfRows=100'"/>
+		<CMD cmd="xml = file.read(url)" />
+		<RETURN condition="not string.equals(xpath.evaluateEx(xml, '//resultCode/text()'), '00')" cmd="device.systemPopup(xpath.evaluateEx(xml, '//resultMsg/text()'))"/>
+		<RETURN condition="xpath.evaluateEx(xml, '//totalCount/text()') == 0" cmd="device.systemPopup('검색 결과가 없습니다.')"/>
+		<CMD cmd="hospitalList.dataSource = xml" />
 	</FUNCTION>
 	
-	<FUNCTION id="closeSlide">
-		<RETURN condition="userVariable.slideIsAnimating || !userVariable.slideIsOpen" />
-		<CMD cmd="userVariable.slideAnimation = true" />
-		<CMD cmd="userVariable.overlay1=image.capture('leftMenu', 0, 0, 70, 460)" />
-		<CMD cmd="userVariable.overlay2=image.capture('leftMenu', 70, 0, 70, 460)" />
-		<CMD cmd="leftMenuOverlay1.defaultImg=userVariable.overlay1" />
-		<CMD cmd="leftMenuOverlay2.defaultImg=userVariable.overlay2" />
-		<CMD cmd="leftMenuOverlay1.visible='visible'" />
-		<CMD cmd="leftMenuOverlay2.visible='visible'" />
-		<CMD cmd="leftMenu.visible='invisible'" delay="100" />
 
-		<CMD cmd="animation.polyOut('leftMenuOverlay1', 0, 0, -68, 50, 0, 0, -68, -50, 'easeOut3', 400, '')" />
-		<CMD cmd="animation.polyOut('leftMenuOverlay2', -72, 50, -139, 0, -72, -50, -139, 0, 'easeOut3', 400, '')" />
-		<CMD cmd="leftMenu.visible='invisible'" delay="100" />
-		<CMD cmd="userVariable.slideIsOpen=false, rightArea.left=0, animation.flyIn('rightArea', 140, 0, 320, 460, 'easeOut3', 400, '')" />
-		<CMD cmd="userVariable.slideIsAnimating = false" delay="400" />
+	// GPS로 현 위치 받아오는 부분
+	<FUNCTION id="findLocation">
+		<CMD cmd="status=device.gps.status"/>
+		<RETURN condition="not (status == 'enabled' || status == 'gpsOnly' || status == 'networkOnly' || status == 'notDetermined')" cmd="device.systemPopup('GPS를 켜주세요.')" />
+		<CMD cmd="device.gps.addEventListener('onChange', 'function.onGpsChange')"/>
+		<CMD cmd="device.gps.start"/>
 	</FUNCTION>
+	<FUNCTION id="toTime(str)">
+		<RETURN cmd="string.sub(str, 0, 2) + ':' + string.sub(str, 2, 2) " />
+	</FUNCTION >
 
-	<FUNCTION id="openSlide">
-		<RETURN condition="userVariable.slideIsAnimating || userVariable.slideIsOpen" />
-		<CMD cmd="userVariable.slideAnimation = true" />
-		<CMD cmd="animation.polyIn('leftMenuOverlay1', 0, 0, -69, 50, 0, 0, -69, -50, 'easeOut3', 400, '')" />
-		<CMD cmd="animation.polyIn('leftMenuOverlay2', -69, 50, -139, 0, -69, -50, -139, 0, 'easeOut3', 400, '')" />
-		<CMD cmd="userVariable.slideIsOpen=true, animation.flyOut('rightArea', 140, 0, 320, 460, 'easeOut3', 400, 'rightArea.left=140,rightArea.visible=\'visible\'')" />
-		<CMD cmd="leftMenu.visible='visible'" delay="400" />
-		<CMD cmd="leftMenuOverlay1.visible='invisible'" delay="400" />
-		<CMD cmd="leftMenuOverlay2.visible='invisible'" delay="400" />
-		<CMD cmd="userVariable.slideIsAnimating = false" delay="400" />
+	<FUNCTION id="onGpsChange(latitude, longitude, address, country, adminArea, subAdminArea, locality, subLocality, thoroughfare, subThoroughfare)">
+		<CMD cmd="device.gps.removeEventListener('onChange', 'function.onGpsChange')"/>
+		<CMD cmd="latitude.text = latitude"/>
+		<CMD cmd="longitude.text = longitude"/>
+		<CMD cmd="address.text=address"/>
 	</FUNCTION>
 
-	<FUNCTION id="loadUrl(title, url)">
-		<CMD cmd="function.closeSlide" delay="200" />
-		<CMD cmd="userVariable.title = title"/>
-		<CMD cmd="userVariable.url = url"/>
-		<CMD cmd="containerArea.src='webview.xml'"/>
+	// 지도 띄워 주는 부분
+	<FUNCTION id="showMap">
+		<CMD cmd="html = file.read('map.htm')" />
+		<CMD cmd="html = string.replace(html, '$ADDRESS$', xpath.evaluate('dutyAddr/text()'))"/>
+		<CMD cmd="html = string.replace(html, '$LATITUDE$', xpath.evaluate('latitude/text()'))"/>
+		<CMD cmd="html = string.replace(html, '$LONGITUDE$', xpath.evaluate('longitude/text()'))"/>
+		<CMD cmd="html = string.replace(html, '$MYLATITUDE$', latitude.text)"/>
+		<CMD cmd="html = string.replace(html, '$MYLONGITUDE$', longitude.text)"/>
+		<CMD cmd="mapTitle.text = xpath.evaluate('dutyName/text()')" />
+		<CMD cmd="mapWebView.src = html" />
+		<CMD cmd="detailMap.visible = true" />
 	</FUNCTION>
-	
-	<FUNCTION id="loadMOML(title, url)">
-		<CMD cmd="function.closeSlide" delay="200" />
-		<CMD cmd="userVariable.title = title"/>
-		<CMD cmd="userVariable.url = url"/>
-		<CMD cmd="containerArea.src=url"/>
-	</FUNCTION>
-	
-	<FUNCTION id="loadYouTube(title, videoId)">
-		<CMD cmd="function.closeSlide" delay="200" />
-		<CMD cmd="userVariable.title = title"/>
-		<CMD cmd="html = file.read('youtube.htm')"/>
-		<CMD cmd="html = string.replace(html, 'VIDEOID', videoId)" />
-		<CMD cmd="userVariable.url = html"/>
-		<CMD cmd="containerArea.src='webview.xml'"/>
-	</FUNCTION>
+
 </MOML>
