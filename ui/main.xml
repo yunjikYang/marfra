@@ -13,13 +13,11 @@
 
 	<UILAYOUT portrait="320,480" landscape="320,480">
 		<WINDOW layout="0,0,320,480" img="white" align="linear:vertical" padding="10,20,10,0">
-			<WINDOW layout="140,40" defaultImg="#ffffff" align="linear:vCenter|subCenter" padding="10,0,0,0">
-					<IMAGE layout="30sr,30sr" defaultImg="/res/logo.png" />
-					<LABEL text="국립중앙의료원" fontStyle="bold" fontSize="12" margin="3,0,0,0"/>
+			<WINDOW align="linear:subCenter">
+					<IMAGE layout="30,30" defaultImg="/res/logo.png" />
+					<LABEL text="국립중앙의료원" fontStyle="bold" fontSize="12" textAlign="vCenter"/>
 					<LABEL text="가까운 병원 검색" fontSize="12" textAlign="center|right"/>
 			</WINDOW>
-
-			
 
 			<WINDOW align="linear:subCenter">
 				<BUTTON layout="120,30" text="현 위치 확인" onClick="function.findLocation" />
