@@ -15,8 +15,8 @@
 		<WINDOW layout="0,0,320,480" img="white" align="linear:vertical" padding="10,20,10,0">
 			<WINDOW align="linear:subCenter">
 					<IMAGE layout="30,30" defaultImg="/res/logo.png" />
-					<LABEL text="국립중앙의료원" fontStyle="bold" fontSize="12" textAlign="vCenter"/>
-					<LABEL text="가까운 병원 검색" fontSize="12" textAlign="center|right"/>
+					<LABEL layout="120,30" text="국립중앙의료원" fontStyle="bold" fontSize="12" textAlign="vCenter"/>
+					<LABEL layout="200,30" text="가까운 병원 검색" fontSize="12" textAlign="center|right"/>
 			</WINDOW>
 
 			<WINDOW align="linear:subCenter">
