@@ -23,69 +23,23 @@
 					<LABEL text="농림축산식품부" fontStyle="bold" fontSize="12" margin="3,0,0,0"/>
 				</WINDOW>
 
-				<RADIO id="defaultMenu" themeId="menuItem" title="최신뉴스" url="http://m.mafra.go.kr/bbs/list.jsp?board_division=b_sec_1&amp;menu_gubun=menu_1" selected="true">
+				<RADIO id="defaultMenu" themeId="menuItem" title="최신글" url="http://m.mafra.go.kr/bbs/list.jsp?board_division=b_sec_1&amp;menu_gubun=menu_1" selected="true">
 					<LABEL themeId="menuItemIcon" defaultImg="/res/news.png" />
 					<LABEL themeId="menuItemLabel" text="{parent.title}" />
 				</RADIO>
 				<WINDOW themeId="menuSeparator" />
-				<RADIO themeId="menuItem" title="공지/공고" url="http://m.mafra.go.kr/bbs/list.jsp?board_division=m_sec_2&amp;menu_gubun=menu_2" >
+				<RADIO themeId="menuItem" title="공지사항" url="http://m.mafra.go.kr/bbs/list.jsp?board_division=m_sec_2&amp;menu_gubun=menu_2" >
 					<LABEL themeId="menuItemIcon" defaultImg="/res/notice.png" />
 					<LABEL themeId="menuItemLabel" text="{parent.title}" />
 				</RADIO>
 				<WINDOW themeId="menuSeparator" />
-				<RADIO themeId="menuItem" title="해명/설명" url="http://m.mafra.go.kr/bbs/list.jsp?board_division=e_sec_1&amp;menu_gubun=menu_8" >
+				<RADIO themeId="menuItem" title="개발팁" url="http://m.mafra.go.kr/bbs/list.jsp?board_division=e_sec_1&amp;menu_gubun=menu_8" >
 					<LABEL themeId="menuItemIcon" defaultImg="/res/explain.png" />
 					<LABEL themeId="menuItemLabel" text="{parent.title}" />
 				</RADIO>
 				<WINDOW themeId="menuSeparator" />
-				<RADIO themeId="menuItem" title="채용정보" url="http://m.mafra.go.kr/bbs/list.jsp?board_division=m_sec_3&amp;menu_gubun=menu_3" >
+				<RADIO themeId="menuItem" title="질문/답변" url="http://m.mafra.go.kr/bbs/list.jsp?board_division=m_sec_3&amp;menu_gubun=menu_3" >
 					<LABEL themeId="menuItemIcon" defaultImg="/res/incruit.png" />
-					<LABEL themeId="menuItemLabel" text="{parent.title}" />
-				</RADIO>
-				<WINDOW themeId="menuSeparator" />
-				<RADIO themeId="menuItem" title="알림판" url="http://m.mafra.go.kr/bbs/Popup_list.jsp?menu_gubun=menu_4" >
-					<LABEL themeId="menuItemIcon" defaultImg="/res/alert.png" />
-					<LABEL themeId="menuItemLabel" text="{parent.title}" />
-				</RADIO>
-				<WINDOW themeId="menuSeparator" />
-				<RADIO themeId="menuItem" title="통계" url="http://m.mafra.go.kr/bbs/stat_chart.jsp?menu_gubun=menu_6" >
-					<LABEL themeId="menuItemIcon" defaultImg="/res/stats.png" />
-					<LABEL themeId="menuItemLabel" text="{parent.title}" />
-				</RADIO>
-				<WINDOW themeId="menuSeparator" />
-				<RADIO themeId="menuItem" title="농식품가격" url="http://m.okdab.com/mb/" >
-					<LABEL themeId="menuItemIcon" defaultImg="/res/price.png" />
-					<LABEL themeId="menuItemLabel" text="{parent.title}" />
-				</RADIO>
-				<WINDOW themeId="menuSeparator" />
-				<RADIO themeId="menuItem" title="안심장보기" url="http://m.mafra.go.kr/bbs/view_links.jsp?menu_gubun=menu_7" >
-					<LABEL themeId="menuItemIcon" defaultImg="/res/basket.png" />
-					<LABEL themeId="menuItemLabel" text="{parent.title}" />
-				</RADIO>
-
-				<LABEL layout="140,20" text="  SNS" fontSize="10" textAlign="left|vCenter" textColor="#a0a0a0" />
-
-				<RADIO themeId="menuItem" title="블로그2" url="http://m.blog.daum.net/_blog/_m/articleList.do?blogid=08n2r" >
-					<LABEL themeId="menuItemIcon" defaultImg="/res/blog.png" />
-					<LABEL themeId="menuItemLabel" text="{parent.title}" />
-				</RADIO>
-				<WINDOW themeId="menuSeparator" />
-				<RADIO themeId="menuItem" title="트위터2" onClick="appLauncher.openUri('twitter://user?screen_name=mafrakorea', 'askErrorPopup')" >
-					<LABEL themeId="menuItemIcon" defaultImg="/res/twitter.png" />
-					<LABEL themeId="menuItemLabel" text="{parent.title}" />
-				</RADIO>
-				<WINDOW themeId="menuSeparator" />
-				<RADIO themeId="menuItem" title="페이스북2" url="https://www.facebook.com/mafrakorea" >
-					<LABEL themeId="menuItemIcon" defaultImg="/res/facebook.png" />
-					<LABEL themeId="menuItemLabel" text="{parent.title}" />
-				</RADIO>
-				<RADIO themeId="menuItem" title="홍보영상" videoId="mzpOfmMqABE" onClick="function.loadYouTube(caller.title, caller.videoId)" >
-					<LABEL themeId="menuItemIcon" defaultImg="" />
-					<LABEL themeId="menuItemLabel" text="{parent.title}" />
-				</RADIO>
-				<WINDOW themeId="menuSeparator" />
-				<RADIO themeId="menuItem" title="License" url="license.xml" onClick="function.loadMOML(caller.title, caller.url)" >
-					<LABEL themeId="menuItemIcon" defaultImg="" />
 					<LABEL themeId="menuItemLabel" text="{parent.title}" />
 				</RADIO>
 			</WINDOW>
