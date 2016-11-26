@@ -8,12 +8,18 @@
  --> 
 <MOML version="1.1.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.applusform.com/xsd/moml_ui_1.1.8.xsd">
 	<THEMES>
-		<THEME element="BUTTON" text="THEME" textColor="#ffffff" defaultImg="#0080ff" pressedImg="#008000" margin="1"/>
+		<THEME element="BUTTON" textColor="#ffffff" defaultImg="#0080ff" pressedImg="#008000" margin="1"/>
 	</THEMES>
 
 	<UILAYOUT portrait="320,480" landscape="320,480">
 		<WINDOW layout="0,0,320,480" img="white" align="linear:vertical" padding="10,20,10,0">
-			<LABEL text="가까운 병원 검색 : " textAlign="center|right"/>
+			<WINDOW layout="140,40" defaultImg="#ffffff" align="linear:vCenter|subCenter" padding="10,0,0,0">
+					<IMAGE layout="30sr,30sr" defaultImg="/res/logo.png" />
+					<LABEL text="국립중앙의료원" fontStyle="bold" fontSize="12" margin="3,0,0,0"/>
+					<LABEL text="가까운 병원 검색" fontSize="12" textAlign="center|right"/>
+			</WINDOW>
+
+			
 
 			<WINDOW align="linear:subCenter">
 				<BUTTON layout="120,30" text="현 위치 확인" onClick="function.findLocation" />
